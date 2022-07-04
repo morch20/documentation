@@ -32,7 +32,7 @@ git commit -am "comment"
 ```
 <br>
 
-#Status and logs
+# Status and logs
 ---
 
 #### Check status for files not in repository
