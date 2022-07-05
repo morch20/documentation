@@ -126,13 +126,13 @@ git remote -v
 
 #### Rename the remote
 ```git
-git rename "old name" "new name"
+git remote rename "old name" "new name"
 ```
 <br>
 
 #### Remove remote
 ```git
-git remove "name"
+git remote remove "name"
 ```
 <br>
 
