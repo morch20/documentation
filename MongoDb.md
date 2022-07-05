@@ -64,19 +64,53 @@ var "variable name" = "value"
 <br>
 
 #### Arithmetic Operators
+- Equal to `$eq`
+    ```mongodb
+    db."collection name".find({"rating": {$eq : 10} })
+    ```
+- Not equal `$ne`
+    ```mongodb
+    db."collection name".find({"rating": {$ne : 0} })
+    ```
 - Greater then `$gt`
+    ```mongodb
+    db."collection name".find({"rating": {$gt : 5} })
+    ```
 - Greater or Equal then `$gte`
+    ```mongodb
+    db."collection name".find({"rating": {$gte : 5} })
+    ```
 - Less then `$lt`
+    ```mongodb
+    db."collection name".find({"rating": {$lt : 10} })
+    ```
 - Less then or Equal `$lte`
-
-```mongodb
-db."collection name".find({"rating": })
-```
+    ```mongodb
+    db."collection name".find({"rating": {$let : 10} })
+    ```
+- In `$in`
+    ```mongodb
+    db."collection name".find({ section: { $in : ['Planet', ...] } })
+    ```
+- Not in `$nin`
+    ```mongodb
+    db."collection name".find({ section: { $nin : ['Planet',...] } })
+    ```
 <br>
 
 #### Boolean Operators
 - Or `$or`
-
+    ```mongodb
+    db."collection name".find({$or: [{price: {$gte:50}}, {amount: 1} ]})
+    ```
+- And `$and`
+    ```mongodb
+    db."collection name".find({$and: [{price: 50}, {amount: 10} ]})
+    ```
+- Not `$not`
+    ```mongodb
+    db."collection name".find({price: {$not: {$eq:50}} })
+    ```
 
 <br>
 #### Make new database/collection/document
@@ -118,6 +152,12 @@ show collections
 #### Switch collection
 ```mongodb
 db."collection name"
+```
+<br>
+
+#### Delete collection
+```mongodb
+db."collection name".drop()
 ```
 <br>
 
@@ -186,6 +226,98 @@ db."collection name".find("filter index(es)", "index(es) to be returned")
 ```
 <br>
 
+#### Filter document's index when they are arrays
+In the following document genre has an array:  
+```json
+{
+    "author": "Your mom",
+    "rating": 10,
+    "genre": ["fantasy", "magic"]
+}
+```
+<br>
+
+To find all documents that have the property "fantasy" inside "genre"  
+```mongodb
+db."collection name".find({"genre": "fantasy"})
+```
+<br>
+
+To find all documents with **only** the specified property(ies) inside "genre"
+```mongodb
+db."collection name".find({"genre": ["fantasy", "magic", ...]})
+```
+<br>
+
+To find all documents that the specified properties are **in** the array even if there are other properties
+```mongodb
+db."collection name".find({"genre": {$all: ["fantasy", ...]}})
+```
+<br>
+
+#### Filter documents using nested documents
+- For documents nested inside of arrays
+    ```json
+    {
+        "arr": [
+            {
+                "age": 20,
+                "name": "luigi"
+            },
+            {
+                "age": 19,
+                "name": "sarah"
+            },
+            {
+                "age": 25,
+                "name": "pepe"
+            }
+        ]
+    },
+    {...},
+    {...}
+    ```  
+    The document containing "arr" will be returned using:
+    ```mongodb
+    db."collection name".find({ "arr.age": 20})
+    ```
+<br>
+
+- Or they can be nested inside other documents
+    ```json
+    {
+        "obj": {
+        "person1": {
+            "age": 20,
+            "name": "luigi"
+        },
+        "person2": {
+            "age": 19,
+            "name": "sarah"
+        },
+        "person3": {
+            "age": 25,
+            "name": "pepe"
+        }
+        }
+    },
+    {...},
+    {...}
+    ```
+    In this case you will have to choose the "person" and see if they have the index/property you are looking for
+    ```mongodb
+    db."collection name".find({ "obj.person1.age": 20})
+    ```  
+    <br>
+
+    or use the `$exists` query selector
+    ```mongodb
+    db."collection name".find({ "obj": {"$exists": { "age": 20}} })
+    ```
+    In both cases, the document containing "obj" will be returned
+
+
+<br>
 
 #### Get specific amount of elements
 ```mongodb
@@ -223,6 +355,25 @@ db."collection name".find().sort()
 <br>
 
 
+## Deleting Documents
+---
 
+#### Delete one document
+```mongodb
+db."collection name".deleteOne("property")
+```
+<br>
+
+#### Delete many documents
+```mongodb
+db."collection name".deleteMany("property")
+```
+<br>
+
+#### Delete all documents in collection
+```mongodb
+db."collection name".deleteMany({})
+```
+<br>
 
 
