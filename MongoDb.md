@@ -377,3 +377,51 @@ db."collection name".deleteMany({})
 <br>
 
 
+## Updating Documents
+---
+
+#### Update one document
+It is better to use the unique id property to find the document
+```mongodb
+db."collection name".updateOne({"property to find document"}, {$set: {"property(ies) to be updated"}})
+```
+<br>
+
+#### Update many documents
+```mongodb
+db."collection name".updateMany({"property to find document"}, {$set: {"property(ies) to be updated"}})
+```
+<br>
+
+
+#### Increment a index in a document
+```mongodb
+db."collection name".updateOne({"property to find document"}, {$inc: {"property(ies) to be updated"}})
+```
+<br>
+
+#### Delete an array element of an index in a document
+```mongodb
+db."collection name".updateOne({"property to find document"}, {$pull: {"array name": "element to be deleted"}})
+```
+<br>
+
+#### Delete multiple array elements of an index in a document
+```mongodb
+db."collection name".updateOne({"property to find document"}, {$pull: {"array name": {$each: [elements to be deleted]}}})
+```
+<br>
+
+#### Adding an array element of an index in a document
+```mongodb
+db."collection name".updateOne({"property to find document"}, {$push: {"array name": "element to be added"}})
+```
+<br>
+
+#### Adding multiple array elements of an index in a document
+```mongodb
+db."collection name".updateOne({"property to find document"}, {$push: {"array name": {$each: [elements to be added]}}})
+```
+<br>
+
+
