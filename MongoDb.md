@@ -424,4 +424,13 @@ db."collection name".updateOne({"property to find document"}, {$push: {"array na
 ```
 <br>
 
+More operators for updating documents
+- `$unset`
+- `$rename`
+- `$mul`
+- `$min`
+- `$max`
+- `$currentDate`
+
+
 
