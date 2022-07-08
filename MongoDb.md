@@ -431,6 +431,190 @@ More operators for updating documents
 - `$min`
 - `$max`
 - `$currentDate`
+<br>
+
+# Indexes
+---
+
+#### Show all indexes
+```mongodb
+db."collection name".getIndexes()
+```
+<br>
+
+#### Create index
+```mongodb
+db."collection name".createIndex("property. Ex: {'rating': 8}")
+```
+<br>
+
+#### Delete index
+```mongodb
+db."collection name".dropIndex("property. Ex: {'rating': 8}")
+```
+<br>
 
 
 
+# MongoDB Driver and Pagination
+--- 
+
+For this example we will using a Node.js driver and an Express API
+<br>
+
+The following code is used to connect to the MongoDB database in local host, and export the functions for the API.
+==Installing the mongodb package is required==
+
+```javascript
+const { MongoClient } = require('mongodb')
+
+let dbConnection
+const url = 'mongodb://localhost:27017/bookstore' //for local database
+const url = 'mongodb+srv://<username>:<password>@cluster etc...' // for mongodb atlas
+
+module.exports = {
+  connectToDb: (cb) => {
+    MongoClient.connect(url)
+      .then(client => {
+        dbConnection = client.db()
+        return cb()
+      })
+      .catch(err => {
+        console.log(err)
+        return cb(err)
+      })
+  },
+  getDb: () => dbConnection
+}
+```
+<br>
+<br>
+
+The following code would be a simple Node.js and Express API example 
+```javascript
+const express = require('express')
+const { getDb, connectToDb } = require('./db')
+const { ObjectId } = require('mongodb')
+
+// init app & middleware
+const app = express()
+app.use(express.json())
+
+// db connection
+let db
+
+connectToDb((err) => {
+  if(!err){
+    app.listen('3000', () => {
+      console.log('app listening on port 3000')
+    })
+    db = getDb()
+  }
+})
+
+// routes
+app.get('/books', (req, res) => {
+    //Pagination here <--------
+    //the url should look like this: http://localhost:3000/books?p=0
+    //where p=0 is the current page you are at
+
+    const page = req.query.p || 0 //current page
+    const booksPerPage = 3 // is the limit of document per pages
+
+  let books = []
+
+  db.collection('books')
+    .find()
+    .sort({author: 1})
+    .skip(page * booksPerPage) //skip previous pages
+    .limit(booksPerPage)        //limit documents per page
+    .forEach(book => books.push(book))
+    .then(() => {
+      res.status(200).json(books)
+    })
+    .catch(() => {
+      res.status(500).json({error: 'Could not fetch the documents'})
+    })
+})
+
+app.get('/books/:id', (req, res) => {
+
+  if (ObjectId.isValid(req.params.id)) {
+
+    db.collection('books')
+      .findOne({_id: new ObjectId(req.params.id)})
+      .then(doc => {
+        res.status(200).json(doc)
+      })
+      .catch(err => {
+        res.status(500).json({error: 'Could not fetch the document'})
+      })
+      
+  } else {
+    res.status(500).json({error: 'Not a valid document id'})
+  }
+
+})
+
+app.post('/books', (req, res)) => {
+    const book = req.body
+
+    db.collection('books')
+        .insertOne(book)
+        .then(result => {
+            res.status(201).json(result)
+        })
+        .catch(err => {
+            res.status(500).json(err: 'Could not create a new document')
+        })
+}
+
+app.delete('/books/:id', (req, res) => {
+
+    if (ObjectId.isValid(req.params.id)) {
+
+    db.collection('books')
+      .deleteOne({_id: new ObjectId(req.params.id)})
+      .then(result => {
+        res.status(200).json(result)
+      })
+      .catch(err => {
+        res.status(500).json({error: 'Could not delete the document'})
+      })
+      
+  } else {
+    res.status(500).json({error: 'Not a valid document id'})
+  }
+})
+
+app.patch('books/:id', (req, res) => {
+    const updates = req.body
+
+     if (ObjectId.isValid(req.params.id)) {
+
+    db.collection('books')
+      .updateOne({_id: new ObjectId(req.params.id)}, {$set: updates})
+      .then(result => {
+        res.status(200).json(result)
+      })
+      .catch(err => {
+        res.status(500).json({error: 'Could not update the document'})
+      })
+      
+  } else {
+    res.status(500).json({error: 'Not a valid document id'})
+  }
+})
+
+```
+
+<br>
+<br>
+
+# MongoDB Atlas
+---
+
+- Make a user for access to the database
+- Add IP access to the database for you computer
+- Make cluster
+- connect to cluster and paste link to platform
