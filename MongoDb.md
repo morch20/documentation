@@ -9,28 +9,22 @@
 ---
 
 # Contents
- - [Connection](#connection-connection)
-
- - [Basics](#basics-basics)
-
- - [Collections](#collections-collections)
-
+ - [Connection](#connection)
+ - [Basics](#basics)
+ - [Collections](#collections)
  - [CRUD Operations](#crud-operations)
-    - [Creating documents](#crud-creating)
-    - [Reading documents](#crud-reading)
-    - [Deleting documents](#crud-deleting)
-    - [Updating documents](#crud-updating)
-
+    - [Creating documents](#creating-documents)
+    - [Reading documents](#reading-documents)
+    - [Deleting documents](#deleting-documents)
+    - [Updating documents](#updating-documents)
 - [Indexes](#indexes)
-
-- [MongoDB Driver and Pagination](#driver-pagination)
-
-- [MongoDB Atlas](#atlas)
+- [MongoDB Driver and Pagination](#mongodb-driver-and-pagination)
+- [MongoDB Atlas](#mongodb-atlas)
 <br>
 
 
 
-# Connection {#connection}
+# Connection
 ---
 First you need to **connect to the sever** before doing anything else
 <br>
@@ -52,7 +46,7 @@ This is going to create 3 new databases by default named: **admin**, **config**,
 <br>
 
 
-# Basics {#basics}
+# Basics
 ---
 
 
@@ -154,7 +148,7 @@ db."collection name".insertOne("document")
 <br>
 
 
-# Collections {#collections}
+# Collections
 ---
 
 #### Create collection
@@ -186,11 +180,11 @@ db."collection name".drop()
 <br>
 
 
-# CRUD Operations {#crud-operations}
+# CRUD Operations
 ---
 <br>
 
-## Creating documents {#crud-creating}
+## Creating documents
 ---
 
 #### Insert one document to collection
@@ -206,7 +200,7 @@ db."collection name".insertMany(["document 1",...])
 <br>
 
 
-## Reading documents {#crud-reading}
+## Reading documents
 ---
 
 #### Find one document
@@ -379,7 +373,7 @@ db."collection name".find().sort()
 <br>
 
 
-## Deleting documents {#crud-deleting}
+## Deleting documents
 ---
 
 #### Delete one document
@@ -401,7 +395,7 @@ db."collection name".deleteMany({})
 <br>
 
 
-## Updating documents {#crud-updating}
+## Updating documents
 ---
 
 #### Update one document
@@ -457,7 +451,7 @@ More operators for updating documents
 - `$currentDate`
 <br>
 
-# Indexes {#indexes}
+# Indexes
 ---
 
 #### Show all indexes
@@ -480,7 +474,7 @@ db."collection name".dropIndex("property. Ex: {'rating': 8}")
 
 
 
-# MongoDB Driver and Pagination {#driver-pagination}
+# MongoDB Driver and Pagination
 --- 
 
 For this example we will using a Node.js driver and an Express API
@@ -635,7 +629,7 @@ app.patch('books/:id', (req, res) => {
 <br>
 <br>
 
-# MongoDB Atlas {#atlas}
+# MongoDB Atlas
 ---
 
 - Make a user for access to the database
