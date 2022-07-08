@@ -30,7 +30,7 @@
 
 
 
-# Connection {#connection}
+# Connection
 ---
 First you need to **connect to the sever** before doing anything else
 <br>
