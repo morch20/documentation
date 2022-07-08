@@ -9,11 +9,11 @@
 ---
 
 # Contents
- - [Connection](#connection)
+ - [Connection](#connection-connection)
 
- - [Basics](#basics)
+ - [Basics](#basics-basics)
 
- - [Collections](#collections)
+ - [Collections](#collections-collections)
 
  - [CRUD Operations](#crud-operations)
     - [Creating documents](#crud-creating)
