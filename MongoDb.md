@@ -8,6 +8,30 @@
 
 ---
 
+# Contents
+ - [Connection](#connection)
+
+ - [Basics](#basics)
+
+ - [Collections](#collections)
+
+ - [CRUD Operations](#crud-operations)
+    - [Creating documents](#crud-creating)
+    - [Reading documents](#crud-reading)
+    - [Deleting documents](#crud-deleting)
+    - [Updating documents](#crud-updating)
+
+- [Indexes](#indexes)
+
+- [MongoDB Driver and Pagination](#driver-pagination)
+
+- [MongoDB Atlas](#atlas)
+<br>
+
+
+
+# Connection {#connection}
+---
 First you need to **connect to the sever** before doing anything else
 <br>
 
@@ -28,7 +52,7 @@ This is going to create 3 new databases by default named: **admin**, **config**,
 <br>
 
 
-# Basics
+# Basics {#basics}
 ---
 
 
@@ -130,7 +154,7 @@ db."collection name".insertOne("document")
 <br>
 
 
-# Collections
+# Collections {#collections}
 ---
 
 #### Create collection
@@ -162,11 +186,11 @@ db."collection name".drop()
 <br>
 
 
-# CRUD Operations
+# CRUD Operations {#crud-operations}
 ---
 <br>
 
-## Creating documents
+## Creating documents {#crud-creating}
 ---
 
 #### Insert one document to collection
@@ -182,7 +206,7 @@ db."collection name".insertMany(["document 1",...])
 <br>
 
 
-## Reading documents
+## Reading documents {#crud-reading}
 ---
 
 #### Find one document
@@ -355,7 +379,7 @@ db."collection name".find().sort()
 <br>
 
 
-## Deleting Documents
+## Deleting documents {#crud-deleting}
 ---
 
 #### Delete one document
@@ -377,7 +401,7 @@ db."collection name".deleteMany({})
 <br>
 
 
-## Updating Documents
+## Updating documents {#crud-updating}
 ---
 
 #### Update one document
@@ -433,7 +457,7 @@ More operators for updating documents
 - `$currentDate`
 <br>
 
-# Indexes
+# Indexes {#indexes}
 ---
 
 #### Show all indexes
@@ -456,7 +480,7 @@ db."collection name".dropIndex("property. Ex: {'rating': 8}")
 
 
 
-# MongoDB Driver and Pagination
+# MongoDB Driver and Pagination {#driver-pagination}
 --- 
 
 For this example we will using a Node.js driver and an Express API
@@ -611,7 +635,7 @@ app.patch('books/:id', (req, res) => {
 <br>
 <br>
 
-# MongoDB Atlas
+# MongoDB Atlas {#atlas}
 ---
 
 - Make a user for access to the database
