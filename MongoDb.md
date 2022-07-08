@@ -9,7 +9,7 @@
 ---
 
 # Contents
- - [Connection](#connection-connection)
+ - [Connection](#connection)
 
  - [Basics](#basics-basics)
 
@@ -30,7 +30,7 @@
 
 
 
-# Connection {#connection-connection}
+# Connection
 ---
 First you need to **connect to the sever** before doing anything else
 <br>
